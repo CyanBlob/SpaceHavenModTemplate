@@ -1,0 +1,14 @@
+{
+  "classPath": [
+    "mods/SpaceHavenMod-0.0.1-LTW.jar",
+    "aspectj-1.9.19.jar",
+    "spacehaven.jar"
+  ],
+  "mainClass": "fi.bugbyte.spacehaven.steam.SpacehavenSteam",
+  "vmArgs": [
+    "-javaagent:./aspectjweaver-1.9.19.jar",
+    "-Xmx2G",
+    "-XstartOnFirstThread",
+    "-verbose"
+  ]
+}
