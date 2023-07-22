@@ -1,7 +1,6 @@
 package com.cyanblob.SpaceHavenMod;
 
 import fi.bugbyte.spacehaven.gui.*;
-import fi.bugbyte.spacehaven.stuff.Entity;
 import fi.bugbyte.spacehaven.world.Ship;
 
 import java.util.Comparator;
@@ -26,12 +25,10 @@ class newComp implements Comparator {
          if (h1 != h2 && h1 != null && h2 != null) {
             return h1.getShipId() > h2.getShipId() ? 1 : -1;
          } else {
-        	 //MODDED (TASK)
-        	 return Entity.taskToString(o1.getEntity().getCurrentTask().task).compareTo(Entity.taskToString(o2.getEntity().getCurrentTask().task));
-             // MODDED (ID):
-        	 //return o1.getEntity().getEntityId() - o2.getEntity().getEntityId();
-        	 // ORIGININAL:
-             //return o1.getEntity().getName().compareTo(o2.getEntity().getName());
+        	 // Task-based
+        	 //return Entity.taskToString(o1.getEntity().getCurrentTask().task).compareTo(Entity.taskToString(o2.getEntity().getCurrentTask().task));
+             // ID-based
+        	 return o1.getEntity().getEntityId() - o2.getEntity().getEntityId();
 
          }
       }
@@ -42,7 +39,6 @@ class newComp implements Comparator {
    }
 }
 
-
 @Aspect
 public class guiAspect {
 
@@ -52,7 +48,6 @@ public class guiAspect {
 
     @Around("modComp(comp)")
     public Object pModComp(ProceedingJoinPoint pjp, Comparator comp) throws Throwable {
-    	System.out.println("MODDING COMP");
     	return pjp.proceed(new Object[] {new newComp()});
     }
 }
