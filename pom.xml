@@ -1,69 +1,136 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-  <groupId>com.cyanblob</groupId>
-  <artifactId>SpaceHavenMod</artifactId>
-  <version>0.0.1-LTW</version>
-
-    <description>
-        A basic project with AspectJ Load Time Weaving.
-    </description>
+    <groupId>com.cyanblob</groupId>
+    <artifactId>SpaceHavenMod</artifactId>
+    <version>0.0.1-LTW</version>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <aspectj.version>1.9.19</aspectj.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.9.19</version>
+            <!--<version>1.5.4</version>-->
+        </dependency>
+
+        <dependency>
+            <groupId>fi.bugbyte</groupId>
+            <artifactId>spacehaven</artifactId>
+            <version>1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.19</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
     <build>
-        <pluginManagement>
-            <plugins>
+        <sourceDirectory>src</sourceDirectory>
+        <plugins>
+
             <plugin>
-		        <groupId>dev.aspectj</groupId>
-		        <artifactId>aspectj-maven-plugin</artifactId>
-		        <version>1.13.1</version>
-                <configuration>
-					<forceAjcCompile>true</forceAjcCompile>
-                    <showWeaveInfo>true</showWeaveInfo>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <Xlint>ignore</Xlint>
-                    <complianceLevel>1.8</complianceLevel>
-                    <encoding>UTF-8</encoding>
-                    <verbose>true</verbose>
-                </configuration>
-                <executions>
-                    <execution>
-                        <!-- IMPORTANT -->
-                        <phase>process-sources</phase>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>test-compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <!--<groupId>dev.aspectj</groupId>
+    
+    <artifactId>aspectj-maven-plugin</artifactId>
+    
+    <version>1.13.1</version>-->
+                <groupId>dev.aspectj</groupId>
+                <artifactId>aspectj-maven-plugin</artifactId>
+                <version>1.13.1</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.aspectj</groupId>
                         <artifactId>aspectjtools</artifactId>
-                        <version>${aspectj.version}</version>
+                        <version>1.9.19</version>
                     </dependency>
                 </dependencies>
-            </plugin>
-        </plugins>
-    </pluginManagement>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
                 <configuration>
+                    <forceAjcCompile>true</forceAjcCompile>
+                    <showWeaveInfo>true</showWeaveInfo>
+                    <verbose>true</verbose>
+                    <Xlint>ignore</Xlint>
+                    <encoding>UTF-8 </encoding>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <complianceLevel>1.8</complianceLevel>
+                    <!--<weaveDependencies>
+
+                        <weaveDependency>
+
+                            <groupId>fi.bugbyte</groupId>
+
+                            <artifactId>spacehaven</artifactId>
+
+                        </weaveDependency>
+
+                    </weaveDependencies>-->
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal> <!-- use this goal to weave all your main classes -->
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>aspectj-maven-plugin</artifactId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <release>8</release>
+                    <!--<compilerArgs>
+    <arg>-Xmaxerrs=1000</arg>
+   
+    <arg>-Xlint</arg>
+   
+    </compilerArgs>-->
+                </configuration>
+            </plugin>
+            <!--<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.6.0</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>fi.bugbyte.spacehaven.steam.SpacehavenSteam</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>assemble-all</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>fi.bugbyte.spacehaven.steam.SpacehavenSteam</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -71,40 +138,25 @@
                 <version>2.9</version>
                 <configuration>
                     <argLine>-XX:-UseSplitVerifier</argLine>
-                    <argLine>-javaagent:${user.home}/.m2/repository/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar</argLine>
+                    <argLine>
+                        -javaagent:${user.home}/.m2/repository/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar</argLine>
                 </configuration>
             </plugin>
+            <!--<plugin>
+ 
+    <groupId>org.codehaus.mojo</groupId>
+   
+    <artifactId>exec-maven-plugin</artifactId>
+    
+    <configuration>
+    
+    <addClasspath>true</addClasspath>
+    
+    <mainClass>fi.bugbyte.spacehaven.steam.SpacehavenSteam</mainClass>
+    
+    </configuration>
+    
+    </plugin>-->
         </plugins>
     </build>
-
-    <dependencies>
-		<dependency>
-	      <groupId>fi.bugbyte</groupId>
-	      <artifactId>spacehaven</artifactId>
-	      <version>1</version>
-	    </dependency>
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjrt</artifactId>
-            <version>${aspectj.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjweaver</artifactId>
-            <version>${aspectj.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
-            <version>2.5</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.10</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 </project>
