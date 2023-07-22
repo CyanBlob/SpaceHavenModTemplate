@@ -1,0 +1,14 @@
+<aspectj>
+
+    <aspects>
+        <!-- Aspects -->
+        <aspect name="com.cyanblob.SpaceHavenMod.LadiesNight"/>
+        <aspect name="com.cyanblob.SpaceHavenMod.guiAspect"/>
+    </aspects>
+
+    <weaver options="-verbose -showWeaveInfo">
+		<!-- Ignore everything but game logic -->
+        <include within="fi.bugbyte..*"/>
+    </weaver>
+
+</aspectj>
