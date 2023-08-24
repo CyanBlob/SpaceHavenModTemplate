@@ -35,13 +35,20 @@ https://eclipse.dev/aspectj/doc/released/adk15notebook/ataspectj-pcadvice.html
 
 The general idea is that we define locations where we want code to be inject ("pointcuts") and can then run code before, after, or around that location. The "around" pointcut is the most powerful because you can decide whether or not to run the original code via the `proceed` function. See `guiAspect.java` as an example of this  
 
-Note that AspectJ provides two modes: an annotation mode that uses annotations in `.java` files and another style that uses `.aj` files with custom syntax. I was only able to get load time weaving (LTW) working with the annotations, but it may be possible to use the `.aj` files as well
+Note that AspectJ provides two modes: an annotation mode that uses annotations in `.java` files and another style that uses `.aj` files with custom syntax. I was only able to get load time weaving (LTW) working with the annotations, but it may be possible to use the `.aj` files as well  
+
+Make sure to edit `src/main/resources/META-INF/aop.xml` to get your mod picked up by AspectJ!
 
 ### Building the mod
 Building is simple. From within the SpaceHavenModTemplate directory, run: `mvn package`  
 If all goes well, you will have a `.jar` file created in the `target` directory. This is the mod file.
 
 ## Adding mods + running the game
+
+Use the latest version of the [mod loader](https://github.com/CyanBlob/spacehaven-modloader), or follow the instructions below:
+
+#### Manual setup
+
 Navigate to the directory containing `spacehaven.jar`. You can open this directory by right-clicking the game in your Steam library, then clicking `Manage -> Browse Local Game Files`  
 Note: On MacOS this will take you to a directory containing `spacehaven.app` instead of `spacehaven.jar`. Just right-click the .app file and select "Show Package Contents". Then go into "Contents/Resources" to find the `.jar` file  
   
